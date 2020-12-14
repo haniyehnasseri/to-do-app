@@ -10,6 +10,9 @@ export default class UserEntity extends BaseEntity {
   @Column({ length: 500 })
   name: string;
 
+  @Column({ length : 30})
+  password: string;
+
   // 1:n relation with bookEntity   
   @OneToMany( type => BookEntity , book => book.user)
   books: BookEntity[];

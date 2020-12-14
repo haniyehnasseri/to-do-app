@@ -21,8 +21,15 @@ export default class GenreService {
   async deleteGenre(id:number):Promise<string> {
     const genre:GenreEntity = await GenreEntity.findOne(id);
     if(genre){
-        await GenreEntity.delete(genre)
-        return 'Deleted Successfully'
+        try {
+            await GenreEntity.delete(genre)
+            return 'Deleted Successfully'
+            
+        } catch (error) {
+            console.log(error)
+            return 'Error'
+        }
+
     }
     else{
         return 'No such ID . '
@@ -38,9 +45,16 @@ async updateGenre(newGenre: CreateGenreDto, id:number):Promise<string> {
           genre.type =  newGenre.type;
       }
 
-      GenreEntity.save(genre);
-
-      return 'Done . ';
+      try {
+        await GenreEntity.save(genre);
+        return 'Done . ';
+          
+      } catch (error) {
+          console.log(error)
+          return 'Error'
+          
+      }
+      
     }
     else{
       return 'No such ID . ' 

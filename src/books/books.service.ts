@@ -53,18 +53,33 @@ export class BooksService {
             }
         }
 
-        await getConnection()
+        /*await getConnection()
             .createQueryBuilder()
             .update(BookEntity)
             .set({user: {id: newBook.userID}})
             .where("id = :id", { id: id })
-            .execute();
+            .execute();*/
 
         if(newBook.name){
             book.name =  newBook.name;
         }
         if(genres.length > 0){
-            book.genres = genres; 
+            try {
+                book.genres = genres; 
+                
+            } catch (error) {
+                console.log(error);
+            }
+            
+        }
+        if(newBook.userID){
+            try {
+                book.user = await UserEntity.findOne(newBook.userID);
+                
+            } catch (error) {
+                console.log(error);
+            }
+            
         }
 
         BookEntity.save(book);

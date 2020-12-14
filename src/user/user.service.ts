@@ -3,6 +3,7 @@ import UserEntity from '../db/entity/user.entity';
 import CreateUserDto from './dto/create-user.dto';
 import BookEntity from '../db/entity/book.entity';
 import {getConnection} from "typeorm";
+import passport from 'passport';
 
 @Injectable()
 export class UserService {
@@ -11,6 +12,8 @@ export class UserService {
     const userEntity: UserEntity = UserEntity.create();
     const name : string = userDetails.name;
     userEntity.name = name;
+    const password : string = userDetails.password;
+    userEntity.password = password;
     await UserEntity.save(userEntity);
     return userEntity;
   }
@@ -40,6 +43,10 @@ async updateUser(newUser: CreateUserDto, id:number):Promise<string> {
 
       if(newUser.name){
           user.name =  newUser.name;
+      }
+
+      if(newUser.password){
+        user.password =  newUser.password;
       }
 
       UserEntity.save(user);
