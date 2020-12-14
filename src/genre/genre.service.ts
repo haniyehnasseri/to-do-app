@@ -16,4 +16,35 @@ export default class GenreService {
     async getAllGenre(): Promise<GenreEntity[]> {
         return await GenreEntity.find();
     }
+
+    
+  async deleteGenre(id:number):Promise<string> {
+    const genre:GenreEntity = await GenreEntity.findOne(id);
+    if(genre){
+        await GenreEntity.delete(genre)
+        return 'Deleted Successfully'
+    }
+    else{
+        return 'No such ID . '
+    }
+}
+
+async updateGenre(newGenre: CreateGenreDto, id:number):Promise<string> {
+    const genre:GenreEntity = await GenreEntity.findOne(id);
+    if(genre){
+
+
+      if(newGenre.type){
+          genre.type =  newGenre.type;
+      }
+
+      GenreEntity.save(genre);
+
+      return 'Done . ';
+    }
+    else{
+      return 'No such ID . ' 
+    }
+
+    }
 }

@@ -22,4 +22,33 @@ export class UserService {
     const user: UserEntity = await UserEntity.findOne({where: {id: userID}, relations: ['books']});
     return user.books;
   }
+
+  async deleteUser(id:number):Promise<string> {
+    const user:UserEntity = await UserEntity.findOne(id);
+    if(user){
+        await UserEntity.delete(user)
+        return 'Deleted Successfully'
+    }
+    else{
+        return 'No such ID . '
+    }
+}
+
+async updateUser(newUser: CreateUserDto, id:number):Promise<string> {
+    const user:UserEntity = await UserEntity.findOne(id);
+    if(user){
+
+      if(newUser.name){
+          user.name =  newUser.name;
+      }
+
+      UserEntity.save(user);
+
+      return 'Done . ';
+    }
+    else{
+      return 'No such ID . ' 
+    }
+
+    }
 }

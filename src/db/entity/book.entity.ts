@@ -12,11 +12,11 @@ export default class BookEntity extends BaseEntity
   name: string;
 
   // n:1 relation with books
-  @ManyToOne(type => UserEntity, user => user.books)
+  @ManyToOne(type => UserEntity, user => user.books, {onDelete : 'SET NULL'})
   user: UserEntity;
 
   // n:n relation with genre
-  @ManyToMany(type => GenreEntity)
+  @ManyToMany(type => GenreEntity,{ nullable:true,onDelete : 'CASCADE', onUpdate : 'CASCADE'})
   @JoinTable()
   genres: GenreEntity[];
 }
