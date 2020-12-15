@@ -7,12 +7,13 @@ import { GenreModule } from './genre/genre.module';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { TodoModule } from './todo/todo.module';
 import BookEntity from './db/entity/book.entity';
 import GenreEntity from './db/entity/genre.entity';
 import UserEntity from './db/entity/user.entity';
 
 @Module({
-  imports: [HelloModule, BooksModule, GenreModule, UserModule,TypeOrmModule.forFeature([UserEntity, BookEntity , GenreEntity],),TypeOrmModule.forRoot(), AuthModule,],
+  imports: [HelloModule, BooksModule, GenreModule, UserModule,TypeOrmModule.forFeature([UserEntity, BookEntity , GenreEntity],),TypeOrmModule.forRoot(), AuthModule, TodoModule,],
   controllers: [AppController],
   providers: [AppService],
 })
