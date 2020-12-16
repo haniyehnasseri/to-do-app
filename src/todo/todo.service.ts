@@ -87,14 +87,19 @@ export class TodoService {
 
         const task:TaskEntity = await TaskEntity.findOne(taskId);
         const userID:number = Number(userId);
+        
         if(!task){
             return 'no such task'
         }
+        
         if(task.owner.id !== userID ){
             return 'You are not the owner of the task'
         }
 
-        await TaskEntity.delete(task)
+        
+
+        await TaskEntity.remove(task)
+        
         return 'Deleted Successfully';
     
         
